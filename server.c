@@ -42,8 +42,8 @@ int main()
 
 	fgets(sendline,100,stdin);
 	
-	if(sendline == "bye")
-		break
+	//if(sendline == "bye")
+	//	break
 
 	printf("Server : %s", sendline);
 
