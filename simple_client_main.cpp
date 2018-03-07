@@ -18,7 +18,6 @@ int main ( int argc, char** argv )
         std::getline (std::cin,input_text);
         client_socket << input_text;
 	      //client_socket << "Test message.";
-        std::cout<<"Wating for reply" << std::endl;
         client_socket >> reply;
         std::cout << ">> [Server] " << reply << std::endl;
       }
