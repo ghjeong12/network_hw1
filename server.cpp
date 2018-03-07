@@ -1,24 +1,26 @@
-/*Required Headers*/
-
+#include<iostream>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <stdio.h>
 #include<string.h>
+#include<unistd.h>
+#include<arpa/inet.h>
+
+using namespace std;
 
 int main()
 {
-
-    char str[100];
-    char sendline[100];
     char recvline[100];
+    char sendline[100];
     int listen_fd, comm_fd;
 
     struct sockaddr_in servaddr;
 
     listen_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    bzero( &servaddr, sizeof(servaddr));
+    memset(&servaddr, 0, sizeof(servaddr));
+    //bzero( &servaddr, sizeof(servaddr));
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htons(INADDR_ANY);
@@ -32,24 +34,20 @@ int main()
 
     while(1)
     {
+        memset(sendline, 0, sizeof(sendline));
+        memset(recvline, 0, sizeof(recvline));
+	    //bzero( str, 100);
+	    //bzero(sendline, 100);
 
-	    bzero( str, 100);
-	    bzero(sendline, 100);
+	    read(comm_fd, recvline, 100);
 
-	    read(comm_fd,str,100);
+	    //printf("[Client] %s", recvline);
+        cout << "[Client] " << recvline;
 
-	    printf("[Client] %s",str);
+        cout << ">> ";
+	    fgets(sendline, 100, stdin);
+        //printf("Server : %s", sendline);
 
-      printf(">> ");
-	    fgets(sendline,100,stdin);
-	
-	//if(sendline == "bye")
-	//	break
-
-      printf("Server : %s", sendline);
-
-	//write(comm_fd, str, strlen(str)+1);
 	    write(comm_fd, sendline, strlen(sendline)+1);
-
     }
 }
