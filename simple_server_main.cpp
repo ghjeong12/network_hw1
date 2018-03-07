@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-int main ( int argc, int argv[] )
+int main ( int argc, char** argv )
 {
   std::cout << "running....\n";
 
@@ -24,10 +24,11 @@ int main ( int argc, int argv[] )
 		{
 		  std::string data;
 		  new_sock >> data;
-		  std::cout << data + "from client" ;
-		  std::cout << "\n>>";
-		  std::cin >> data;
-		  new_sock << (data+ " from server");
+		  std::cout << ">> [CLIENT] " + data << std::endl;
+      std::cout << ">> ";
+      std::getline(std::cin, data);
+      //std::cin >> data;
+		  new_sock << (data);
 		}
 	    }
 	  catch ( SocketException& ) {}
