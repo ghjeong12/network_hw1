@@ -33,22 +33,23 @@ int main()
     while(1)
     {
 
-	bzero( str, 100);
-	bzero(sendline, 100);
+	    bzero( str, 100);
+	    bzero(sendline, 100);
 
-	read(comm_fd,str,100);
+	    read(comm_fd,str,100);
 
-	printf("Client : %s",str);
+	    printf("[Client] %s",str);
 
-	fgets(sendline,100,stdin);
+      printf(">> ");
+	    fgets(sendline,100,stdin);
 	
 	//if(sendline == "bye")
 	//	break
 
-	printf("Server : %s", sendline);
+      printf("Server : %s", sendline);
 
 	//write(comm_fd, str, strlen(str)+1);
-	write(comm_fd, sendline, strlen(sendline)+1);
+	    write(comm_fd, sendline, strlen(sendline)+1);
 
     }
 }
