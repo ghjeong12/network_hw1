@@ -28,12 +28,12 @@ int main(int argc,char **argv)
 	inet_pton(AF_INET,"127.0.0.1",&(servaddr.sin_addr));
 
 	connect(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
-  
-    fd_set writeset;
+  /*
+  fd_set writeset;
   FD_ZERO (&writeset);
 	FD_SET (0, &writeset);
   FD_SET (sockfd, &writeset);
-
+  */
   while(1)
 	{
     fd_set readset;
@@ -55,20 +55,20 @@ int main(int argc,char **argv)
     {
       if(FD_ISSET(0, &readset))
       {
-      //cout << ">> ";
-		    //fgets(sendline, 100, stdin); /*stdin = 0 , for standard input */
         string s;
         getline(std::cin, s); 
 		    write(sockfd,s.c_str(),s.length());
       }
       if(FD_ISSET(sockfd, &readset))
       {
-        //printf("[Client] %s", sendline);
-        read(sockfd,recvline,sizeof(recvline));
-        cout << "[Server] " << recvline << endl;
+        int read_rtn = read(sockfd,recvline,sizeof(recvline));
+        if(read_rtn > 0)
+        {
+          cout << "[Server User] " << recvline << endl;
+        }
       }
 		//printf("[Server] %s",recvline);
     }
-    }
+  }
 
 }
